@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Test</title>
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <style>
+            .inline {
+                display: inline;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container" style="border: 1px solid #000000">
+            <b>Steam Key of User</b>
+            <form method="POST" action="">
+                {{ form.hidden_tag() }}  <!-- security thing -->
+                <p>{{ form.steamKey }}</p>  <!-- using these p tags fixed the radio form, no fucking clue why -->
+                <hr>
+                <p><b>Analysis Type</b></p>
+                <p>{{ form.analysisType }}</p>
+                <p><input type="submit" value="Analyze"></p>
+            </form>
+        </div>
+        <div class="container" style="border: 1px solid #000000">
+            <p><b>Overall time leaderboards (these can take several hours to load, as they collect data about >200 players)</b></p>
+            <a href="/leaderboard?analysis=speed"><button type="button">Overall speed time leaderboard</button></a>
+            <a href="/leaderboard?analysis=coin"><button type="button">Overall coin time leaderboard</button></a>
+            <a href="/leaderboard?analysis=combined"><button type="button">Overall combined time leaderboard</button></a>
+            <a href="/leaderboard?analysis=dark"><button type="button">Overall dark time leaderboard</button></a>
+        </div>
+        <div class="container">
+            <b>Or, click one of the links next to a player's name to do that analysis for that user</b><br>
+            {% for key, value in players_with_names.items() %}
+                <p class="inline">{{ key }} : {{ value }}</p>
+                <a class="inline" href="/result?steamkey={{value}}&analysis=combined">Combined</a>
+                <a class="inline" href="/result?steamkey={{value}}&analysis=speed">Speed</a>
+                <a class="inline" href="/result?steamkey={{value}}&analysis=coin">Coin</a>
+                <a class="inline" href="/result?steamkey={{value}}&analysis=dark">Dark</a><br>
+            {% endfor %}
+        </div>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </body>
+</html>
