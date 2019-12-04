@@ -1,10 +1,12 @@
 from urllib import request
 import json
 
+# INPUT YOUR OWN STEAM KEY WHERE IT SAYS {steam_key}
+
 
 def lookup_players_by_id(players_list):  # returns dict with {playername: steamkey}
     base_url = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?" \
-               "key=0C78A57F722027ECEA92F361311FE5E2&steamids="
+               "key={steam_key}&steamids="
     max_players_per_request = 100
     # Line below produces list of lists where each list is no longer than max_players_per_request
     split_players_list = [players_list[i * max_players_per_request:(i + 1) * max_players_per_request] for i in
